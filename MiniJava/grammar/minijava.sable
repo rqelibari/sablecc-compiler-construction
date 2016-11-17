@@ -63,6 +63,7 @@ Tokens
     r_bkt = ']';
     l_brace =  '{';
     r_brace =  '}';
+    comma = ',';
 
     /* Other tokens */
     id = letter id_mid*;
@@ -90,4 +91,6 @@ Productions
            | {newtype} id;
 
     /* methods */
-    methoddecl = k_public type id l_par r_par l_brace r_brace;
+    methoddecl = k_public type id l_par paramlist? r_par l_brace r_brace;
+    paramlist = type [first_arg]:id paramrest*;
+    paramrest = comma type id;
