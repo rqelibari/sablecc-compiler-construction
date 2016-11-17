@@ -48,8 +48,10 @@ Tokens
 
     /* tokens to ignore */
     blank = (' ' | tab | eol)+;
+    comment = end_of_line_comment | traditional_comment | docblock_comment;
 Ignored Tokens
-	blank;
+	blank,
+	comment;
 
 Productions
 	program = mainclass;
