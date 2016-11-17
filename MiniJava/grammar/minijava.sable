@@ -125,7 +125,11 @@ Productions
                        | {false} k_false
                        | {new_int} k_new k_int l_bkt exp r_bkt;
 
-    call_expression = {unary} unary_expression
+    bracket_expression = {unary} unary_expression
+                         | {length} bracket_expression l_bkt [index]:bracket_expression r_bkt;
+
+    call_expression = {bracket} bracket_expression
+                      | {length} call_expression point k_length
                       | {call} call_expression point id l_par explist? r_par;
 
     negate_expression = {call} call_expression
