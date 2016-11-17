@@ -3,5 +3,7 @@ class A {
 }
 
 class B {
-	public int myMethod(int a, boolean b) {}
+	public int myMethod(int a, boolean b) {
+		return true;
+	}
 }
