@@ -2,11 +2,22 @@
 Package minijava ;
 
 Helpers
+	all = [0..0xffff];
+
 	/* invisible characters */
     tab = 9;
     cr = 13;
     lf = 10;
     eol = cr lf | cr | lf; // This takes care of different platforms
+
+    /* Comments and non code */
+	input_character = [all - [cr + lf]];  // Allow any character in comments etc.
+	not_star =    [input_character - '*'] | eol;
+	not_star_not_slash = [input_character - ['*' + '/']] | eol;
+
+	end_of_line_comment = '//' input_character* eol?;
+	traditional_comment = '/*' not_star+ '*'+ (not_star_not_slash not_star* '*'+)* '/';
+    docblock_comment = '/**' '*'* (not_star_not_slash not_star* '*'+)* '/';
 
     /* Meaningful input chars */
 	lowercase = ['a'..'z'];
