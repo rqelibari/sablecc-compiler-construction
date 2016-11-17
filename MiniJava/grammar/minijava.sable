@@ -23,3 +23,11 @@ Tokens
     k_void = 'void';
     k_main = 'main';
     k_string = 'String';
+
+    /* Semicolon, Parenthese, Braces, etc. */
+    l_par = '(';
+    r_par = ')';
+    l_bkt = '[';
+    r_bkt = ']';
+    l_brace =  '{';
+    r_brace =  '}';
