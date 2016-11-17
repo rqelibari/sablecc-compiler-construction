@@ -93,7 +93,7 @@ Tokens
 
     /* Other tokens */
     id = letter id_mid*;
-    integer = ['1'..'9'] digit*;
+    integer = '0' | ['1'..'9'] digit*;
 
     /* tokens to ignore */
     blank = (' ' | tab | eol)+;
