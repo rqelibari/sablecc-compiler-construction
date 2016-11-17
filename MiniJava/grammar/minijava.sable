@@ -31,3 +31,11 @@ Tokens
     r_bkt = ']';
     l_brace =  '{';
     r_brace =  '}';
+
+    /* Other tokens */
+    id = letter id_mid*;
+
+    /* tokens to ignore */
+    blank = (' ' | tab | eol)+;
+Ignored Tokens
+	blank;
