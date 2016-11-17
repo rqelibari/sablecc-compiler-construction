@@ -46,10 +46,17 @@ Tokens
     k_class = 'class';
     k_extends = 'extends';
     k_public = 'public';
+
+    /* main method and other methods */
     k_static = 'static';
     k_void = 'void';
     k_main = 'main';
     k_string = 'String';
+    k_return = 'return';
+
+    /* Value keywords */
+    k_true = 'true';
+    k_false = 'false';
 
     /* Type keywords */
     k_int = 'int';
@@ -91,6 +98,10 @@ Productions
            | {newtype} id;
 
     /* methods */
-    methoddecl = k_public type id l_par paramlist? r_par l_brace r_brace;
+    methoddecl = k_public type id l_par paramlist? r_par l_brace k_return exp semicolon r_brace;
     paramlist = type [first_arg]:id paramrest*;
     paramrest = comma type id;
+
+    /* expressions */
+    exp = {true} k_true
+          | {false} k_false;
