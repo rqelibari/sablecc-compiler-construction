@@ -39,3 +39,9 @@ Tokens
     blank = (' ' | tab | eol)+;
 Ignored Tokens
 	blank;
+
+Production
+	program = mainclass;
+    
+    /* classes */
+	mainclass = k_class [class_id]:id l_brace k_public k_static k_void k_main l_par k_string l_bkt r_bkt [arg]:id r_par [method_l_brace]:l_brace [method_r_brace]:r_brace r_brace;
