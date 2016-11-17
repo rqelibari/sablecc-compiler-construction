@@ -46,6 +46,7 @@ Tokens
     k_class = 'class';
     k_extends = 'extends';
     k_public = 'public';
+    k_new = 'new';
 
     /* main method and other methods */
     k_static = 'static';
@@ -53,14 +54,23 @@ Tokens
     k_main = 'main';
     k_string = 'String';
     k_return = 'return';
+    k_length = 'length';
 
     /* Value keywords */
     k_true = 'true';
     k_false = 'false';
+    k_this = 'this';
 
     /* Type keywords */
     k_int = 'int';
     k_boolean = 'boolean';
+
+    /* operators */
+    op_and = '&&';
+    op_plus = '+';
+    op_minus = '-';
+    op_mul = '*';
+    op_st = '<';
 
     /* Semicolon, Parenthese, Braces, etc. */
     semicolon = ';';
@@ -71,9 +81,12 @@ Tokens
     l_brace =  '{';
     r_brace =  '}';
     comma = ',';
+    point = '.';
+    exclamation = '!';
 
     /* Other tokens */
     id = letter id_mid*;
+    integer = ['1'..'9'] digit*;
 
     /* tokens to ignore */
     blank = (' ' | tab | eol)+;
@@ -103,5 +116,29 @@ Productions
     paramrest = comma type id;
 
     /* expressions */
-    exp = {true} k_true
-          | {false} k_false;
+    unary_expression = {identifier} id
+                       | {integer} integer
+                       | {this} k_this
+                       | {instantiation} k_new id l_par r_par
+                       | {parenthesis} l_par exp r_par
+                       | {true} k_true
+                       | {false} k_false
+                       | {new_int} k_new k_int l_bkt exp r_bkt;
+
+    negate_expression = {unary} unary_expression
+                        | {negate} exclamation negate_expression;
+
+    multiplicative_expression = {negate} negate_expression
+                                | {mul} [left]:multiplicative_expression op_mul [right]:negate_expression;
+
+    additive_expression =  {multiplicative} multiplicative_expression
+                            | {plus} [left]:additive_expression op_plus [right]:multiplicative_expression
+                            | {minus} [left]:additive_expression op_minus [right]:multiplicative_expression;
+
+    and_expr = {additive} additive_expression
+               | {and} [left]:and_expr op_and [right]:additive_expression;
+
+    comp_expr = {and} and_expr
+               | {comp} [left]:comp_expr op_st [right]:and_expr;
+
+    exp = comp_expr;
