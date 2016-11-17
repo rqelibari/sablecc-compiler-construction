@@ -13,3 +13,5 @@ Helpers
     uppercase = ['A'..'Z'];
     digit = ['0'..'9'];
     letter = lowercase | uppercase ;
+
+    id_mid = letter | digit | '.' | '_' ;
