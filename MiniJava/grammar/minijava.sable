@@ -71,4 +71,5 @@ Productions
     vardecl = type [name]:id semicolon;
     type = {intarray} k_int l_bkt r_bkt
     	   | {int} k_int
-           | {bool} k_boolean;
+           | {bool} k_boolean
+           | {newtype} id;
