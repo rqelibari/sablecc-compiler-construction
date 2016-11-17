@@ -40,7 +40,7 @@ Tokens
 Ignored Tokens
 	blank;
 
-Production
+Productions
 	program = mainclass;
     
     /* classes */
