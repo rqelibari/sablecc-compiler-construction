@@ -1,2 +1,15 @@
 /* Syntax for Java property files, grossly simplified */
 Package minijava ;
+
+Helpers
+	/* invisible characters */
+    tab = 9;
+    cr = 13;
+    lf = 10;
+    eol = cr lf | cr | lf; // This takes care of different platforms
+
+    /* Meaningful input chars */
+	lowercase = ['a'..'z'];
+    uppercase = ['A'..'Z'];
+    digit = ['0'..'9'];
+    letter = lowercase | uppercase ;
