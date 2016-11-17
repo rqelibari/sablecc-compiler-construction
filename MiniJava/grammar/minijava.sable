@@ -65,6 +65,12 @@ Tokens
     k_int = 'int';
     k_boolean = 'boolean';
 
+    /* statement keywords */
+    k_if = 'if';
+    k_else = 'else';
+    k_while = 'while';
+    k_sopl = 'System.out.println';
+
     /* operators */
     op_and = '&&';
     op_plus = '+';
@@ -83,6 +89,7 @@ Tokens
     comma = ',';
     point = '.';
     exclamation = '!';
+    eqsign = '=';
 
     /* Other tokens */
     id = letter id_mid*;
@@ -99,7 +106,7 @@ Productions
 	program = mainclass classdecl*;
     
     /* classes */
-	mainclass = k_class [class_id]:id l_brace [classvars]:vardecl* k_public k_static k_void k_main l_par k_string l_bkt r_bkt [arg]:id r_par [method_l_brace]:l_brace vardecl* [method_r_brace]:r_brace r_brace;
+	mainclass = k_class [class_id]:id l_brace [classvars]:vardecl* k_public k_static k_void k_main l_par k_string l_bkt r_bkt [arg]:id r_par [method_l_brace]:l_brace vardecl* statement* [method_r_brace]:r_brace r_brace;
 	classdecl = {simple} k_class [class_id]:id l_brace vardecl* methoddecl* r_brace
     			| {extend} k_class [class_id]:id k_extends [parent_class_id]:id l_brace vardecl* methoddecl* r_brace;
     
@@ -111,9 +118,17 @@ Productions
            | {newtype} id;
 
     /* methods */
-    methoddecl = k_public type id l_par paramlist? r_par l_brace k_return exp semicolon r_brace;
+    methoddecl = k_public type id l_par paramlist? r_par l_brace vardecl* statement* k_return exp semicolon r_brace;
     paramlist = type [first_arg]:id paramrest*;
     paramrest = comma type id;
+
+    /* statements */
+    statement = {assign} id eqsign exp semicolon
+                | {array_assign} id l_bkt [index]:exp r_bkt eqsign exp semicolon
+                | {print} k_sopl l_par exp r_par semicolon
+                | {if} k_if l_par exp r_par [success]:statement k_else [else]:statement
+                | {while} k_while l_par exp r_par statement
+                | {block} l_brace statement* r_brace;
 
     /* expressions */
     unary_expression = {identifier} id
