@@ -15,3 +15,11 @@ Helpers
     letter = lowercase | uppercase ;
 
     id_mid = letter | digit | '.' | '_' ;
+Tokens
+	/* Keywords */
+    k_class = 'class';
+    k_public = 'public';
+    k_static = 'static';
+    k_void = 'void';
+    k_main = 'main';
+    k_string = 'String';
