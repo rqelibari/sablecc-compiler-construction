@@ -36,7 +36,12 @@ Tokens
     k_main = 'main';
     k_string = 'String';
 
+    /* Type keywords */
+    k_int = 'int';
+    k_boolean = 'boolean';
+
     /* Semicolon, Parenthese, Braces, etc. */
+    semicolon = ';';
     l_par = '(';
     r_par = ')';
     l_bkt = '[';
@@ -58,6 +63,12 @@ Productions
 	program = mainclass classdecl*;
     
     /* classes */
-	mainclass = k_class [class_id]:id l_brace k_public k_static k_void k_main l_par k_string l_bkt r_bkt [arg]:id r_par [method_l_brace]:l_brace [method_r_brace]:r_brace r_brace;
+	mainclass = k_class [class_id]:id l_brace k_public k_static k_void k_main l_par k_string l_bkt r_bkt [arg]:id r_par [method_l_brace]:l_brace vardecl* [method_r_brace]:r_brace r_brace;
 	classdecl = {simple} k_class [class_id]:id l_brace r_brace
     			| {extend} k_class [class_id]:id k_extends [parent_class_id]:id l_brace r_brace;
+    
+    /* variables */
+    vardecl = type [name]:id semicolon;
+    type = {intarray} k_int l_bkt r_bkt
+    	   | {int} k_int
+           | {bool} k_boolean;
